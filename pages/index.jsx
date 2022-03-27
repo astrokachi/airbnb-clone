@@ -1,15 +1,17 @@
 import Head from 'next/head'
+import Banner from '../components/Banner'
 import Navbar from '../components/Navbar'
 
 const Home = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <div className="">
       <Head>
-        <title>Kachi's airbnb</title>
+        <title>Kachi's Airbnb</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Navbar />
+      <Banner />
     </div>
   )
 }
