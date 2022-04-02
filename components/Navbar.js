@@ -172,7 +172,7 @@ function Navbar() {
       </nav>
       <div
         className={`mt-20 ml-auto mr-auto w-[92%] rounded-full bg-black bg-white/[.89]   lg:mt-5 lg:w-[75%]  ${
-          position ? 'hidden' : 'md:flex'
+          position ? 'hidden' : 'hidden md:flex'
         }`}
       >
         <div
