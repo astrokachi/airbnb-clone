@@ -1,3 +1,91 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+.--active {
+  width: 1em;
+  display: block;
+  border-bottom: 2px solid white;
+
+  transition: all ease-in 0.1s;
+}
+
+.--click {
+  background: white;
+}
+
+@media only screen and (max-width: 1024px) {
+  .navbar__flexItems {
+    justify-content: flex-end;
+    color: black;
+    width: 100%;
+  }
+}
+
+.hero {
+  background: rgb(255, 56, 92);
+  border-radius: 10px;
+}
+
+.app {
+  font-family: 'Roboto', sans-serif;
+}
+
+.banner__imgCon {
+  border-radius: 9px;
+  background: url(https://a0.muscache.com/im/pictures/6dbfc87a-22a4-4d4a-b352-99aa93a98e78.jpg?im_w=720)
+    center no-repeat;
+  background-size: cover;
+}
+
+.banner__buttonSpan {
+  -webkit-text-fill-color: transparent !important;
+  background: linear-gradient(90deg, #6f019c 0%, #c6017e 135.12%) !important;
+  -webkit-background-clip: text !important;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+}
+
+.banner__contents {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+}
+
+.cards::-webkit-scrollbar {
+  display: none;
+}
+
+.cards {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.row {
+  margin-left: auto;
+  margin-left: auto;
+}
+
+.cards {
+  display: flex;
+  overflow-x: scroll hidden;
+  overflow-y: hidden;
+}
+
+.pink {
+  background: #cc2d4a;
+}
+
+.purple {
+  background: #bc1a6e;
+}
+
+.peach {
+  background: #de3151;
+}
+
+.red {
+  background-color: #d93b30;
+}
+
+
