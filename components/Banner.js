@@ -4,7 +4,7 @@ import Image from 'next/image'
 const Banner = () => {
   return (
     <div className="banner mt-20">
-      <div className="banner__imgCon relative ml-auto mr-auto h-[500px] w-[90%] rounded-md sm:h-[400px] md:h-[500px] lg:h-[550px] xl:h-[700]">
+      <div className="banner__imgCon relative ml-auto mr-auto h-[500px] w-[90%] rounded-md  md:h-[500px] lg:h-[550px] xl:h-[700]">
         <div className="banner__contentsCon absolute top-[65%] w-full px-3 text-center text-white  md:top-[70%]">
           <p className="banner__contents text-[28px] font-bold leading-[30px]">
             Let your curiosity do the booking

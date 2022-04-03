@@ -23,7 +23,7 @@ export default function Home() {
         <title>Kachi's Airbnb</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="absolute top-[0px] -z-10 ml-0 h-[1100px] w-[100%] bg-black text-white lg:h-[950px]" />
+      <div className="absolute top-[0px] -z-10 ml-0 h-[800px] md:h-[950px] lg:h-[800px] w-[100%] bg-black text-white " />
 
       <Navbar />
       <Hero />
