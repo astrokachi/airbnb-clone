@@ -7,7 +7,7 @@ function Hero() {
       <div className="hero__box  mx-5 mb-4 flex  h-[400px] flex-grow items-center justify-center  rounded-full pb-4 text-white md:h-[500px] lg:h-[350px]">
         <div></div>
         <div className="flex flex-col items-center gap-10 md:w-[700px]">
-          <div>
+          <div class>
             <h2 className="mr-auto ml-auto w-max pr-1 text-[28px] font-bold md:inline-block md:text-[32px]">
               Help house
             </h2>

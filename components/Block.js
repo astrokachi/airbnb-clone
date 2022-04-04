@@ -15,8 +15,8 @@ export const Block = ({ url, text, button }) => {
           {text}
         </h2>
 
-        <div className="bg- mt-9 w-max bg-white rounded-md py-3 cursor-pointer px-5 text-[16px] font-semibold text-black ">
-          <h2 className=''>{button}</h2>
+        <div className="bg- mt-9 w-max cursor-pointer rounded-md bg-white py-3 px-5 text-[16px] font-semibold text-black ">
+          <h2 className="">{button}</h2>
         </div>
       </div>
     </div>
