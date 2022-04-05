@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer'
 import Head from 'next/head'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -7,15 +6,13 @@ import { Blocks } from '../components/Blocks'
 import { Cards } from '../components/Cards'
 import Hero from '../components/Hero'
 import Navbar from '../components/Navbar'
+import MediumCards from '../components/MediumCards'
+import Footer from '../components/Footer'
 
-export default function Home() {
+export default function Home({ cardsData }) {
   const [longitude, setLongitude] = useState('')
   const [latitude, setLatitude] = useState('')
   const [cities, setCities] = useState([])
-
-  // useEffect(() => {
-
-  // })
 
   return (
     <div className="app w-100vw absolute right-0 left-0 mr-auto ml-auto h-max max-w-[3000px]">
@@ -23,25 +20,32 @@ export default function Home() {
         <title>Kachi's Airbnb</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="absolute top-[0px] left-0 right-0 -z-10 ml-0 h-[800px] w-[100%] bg-black text-white md:h-[950px] lg:h-[800px] " />
+      <div className="absolute top-[0px] left-0 right-0 -z-10 ml-0 h-[800px] w-[100%] bg-black text-white md:h-[950px] lg:h-[850px] " />
 
       <Navbar />
       <Hero />
       <Banner />
 
       <main className="ml-auto mr-auto w-[90%] ">
-        <section className="mt-16 ">
+        {/* <section className="mt-16 ">
           <h2 className="text-[25px] font-medium ">
             Inspiration for your next trip
           </h2>
           <div className="row">
             <Cards />
           </div>
+        </section> */}
+
+        <section>
+          <h2 className="pt-20 text-4xl font-medium">Live anywhere</h2>
         </section>
+        <div className="-ml-3 flex space-x-3 overflow-scroll p-3 scrollbar-hide">
+          {cardsData?.map(({ img, title }) => (
+            <MediumCards key={img} img={img} title={title} />
+          ))}
+        </div>
         <aside className="mt-16">
-          <h1 className="text-[25px] font-medium ">
-            Discover Airbnb Experiences
-          </h1>
+          <h1 className="text-4xl font-medium ">Discover Airbnb Experiences</h1>
           <Blocks />
         </aside>
       </main>
@@ -54,7 +58,7 @@ export default function Home() {
             Shop Airbnb gift cards
           </h2>
           <button
-            className="mt-9 w-max rounded-lg py-3 px-5 text-white lg:text-[20px]"
+            className="mt-9 cursor-pointer hover:shadow-xl w-max rounded-lg py-3 px-5 text-white lg:text-[20px]"
             style={{ background: '#222222' }}
           >
             Learn more
@@ -70,7 +74,19 @@ export default function Home() {
           }}
         ></div>
       </section>
-      <div className="h-9"></div>
+      <Footer />
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const cardsData = await fetch('https://links.papareact.com/zp1').then((res) =>
+    res.json()
+  )
+
+  return {
+    props: {
+      cardsData,
+    },
+  }
 }

@@ -18,7 +18,7 @@ function Hero() {
               fleeing Ukraine
             </h2>
           </div>
-          <div className="mr-auto ml-auto w-max cursor-pointer rounded-md border px-4 py-2 text-[14px] font-semibold">
+          <div className="mr-auto ml-auto w-max cursor-pointer transition duration-200 active:bg-white active:text-black rounded-md border px-4 py-2 text-[14px] font-semibold">
             Learn more
           </div>
         </div>

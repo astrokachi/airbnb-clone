@@ -12,7 +12,7 @@ export const Blocks = () => {
       <Block
         url="https://a0.muscache.com/im/pictures/4cef99fa-068f-4197-8b1d-e8e04ac0ceaf.jpg?im_w=480"
         text="Things to do from home"
-        button="Online expeiences"
+        button="Online experiences"
       ></Block>
     </div>
   )
