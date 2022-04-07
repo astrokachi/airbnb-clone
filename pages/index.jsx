@@ -29,7 +29,7 @@ export default function Home({ cardsData }) {
         <title>Kachi's Airbnb</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={`absolute top-[0px] left-0 right-0 -z-10 ml-0 ${position && searchInput ? 'h-[1190px] md:h-[1290px] lg:h-[1170px]' : 'h-[800px]  md:h-[950px] lg:h-[850px]'}  w-[100%] bg-black text-white`} />
+      <div className={`absolute top-[0px] left-0 right-0 -z-10 ml-0 ${position && searchInput ? 'h-[1190px] md:h-[1400px] lg:h-[1270px]' : 'h-[800px]  md:h-[950px] lg:h-[850px]'}  w-[100%] bg-black text-white`} />
 
       <Navbar searchInput={searchInput} setSearchInput={setSearchInput} position={position} handleScroll={handleScroll} />
       <Hero />
