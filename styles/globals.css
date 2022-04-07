@@ -88,5 +88,28 @@
   background: #d93b30;
 }
 
+.rdrDefinedRangesWrapper {
+  font-size: 12px;
+  width: 0px !important;
+  border-right: solid 1px #eff2f7;
+  background: #fff;
+  display: hidden !important;
 
-@media only screen and (max-width: 1024px) {}
+}
+
+.rdrInputRanges{
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .rdrDefinedRangesWrapper {
+    font-size: 12px;
+    width: 226px !important;
+    border-right: solid 1px #eff2f7;
+    background: #fff;
+  }
+
+  .rdrInputRanges{
+    display: unset;
+  }
+}

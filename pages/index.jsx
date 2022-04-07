@@ -10,19 +10,28 @@ import MediumCards from '../components/MediumCards'
 import Footer from '../components/Footer'
 
 export default function Home({ cardsData }) {
-  const [longitude, setLongitude] = useState('')
-  const [latitude, setLatitude] = useState('')
-  const [cities, setCities] = useState([])
+  const [searchInput, setSearchInput] = useState('')
+  const [position, setPosition] = useState(0)
+
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleScroll = () => {
+    const position = window.pageYOffset
+    setPosition(position)
+  }
 
   return (
-    <div className="app w-100vw absolute right-0 left-0 mr-auto ml-auto h-max max-w-[3000px]">
+    <div className="app w-100vw absolute right-0 left-0 mr-auto ml-auto h-max max-w-[3000px] ">
       <Head>
         <title>Kachi's Airbnb</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="absolute top-[0px] left-0 right-0 -z-10 ml-0 h-[800px] w-[100%] bg-black text-white md:h-[950px] lg:h-[850px] " />
+      <div className={`absolute top-[0px] left-0 right-0 -z-10 ml-0 ${position && searchInput ? 'h-[1190px] md:h-[1290px] lg:h-[1170px]' : 'h-[800px]  md:h-[950px] lg:h-[850px]'}  w-[100%] bg-black text-white`} />
 
-      <Navbar />
+      <Navbar searchInput={searchInput} setSearchInput={setSearchInput} position={position} handleScroll={handleScroll} />
       <Hero />
       <Banner />
 
@@ -58,7 +67,7 @@ export default function Home({ cardsData }) {
             Shop Airbnb gift cards
           </h2>
           <button
-            className="mt-9 cursor-pointer hover:shadow-xl w-max rounded-lg py-3 px-5 text-white lg:text-[20px]"
+            className="mt-9 w-max cursor-pointer rounded-lg py-3 px-5 text-white hover:shadow-xl lg:text-[20px]"
             style={{ background: '#222222' }}
           >
             Learn more

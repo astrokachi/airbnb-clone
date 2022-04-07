@@ -7,9 +7,11 @@ import {
   UserCircleIcon,
   UsersIcon,
 } from '@heroicons/react/solid'
+import 'react-date-range/dist/styles.css' // main style file
+import 'react-date-range/dist/theme/default.css' // theme css file
+import { DateRangePicker } from 'react-date-range'
 
-function Navbar() {
-  const [position, setPosition] = useState(0)
+function Navbar({ searchInput, setSearchInput, position }) {
   const [el1hover, setEl1Hover] = useState(false)
   const [el2hover, setEl2Hover] = useState(false)
   const [el3hover, setEl3Hover] = useState(false)
@@ -21,14 +23,20 @@ function Navbar() {
   const [lel3click, setLEl3click] = useState(false)
   const [lel4click, setLEl4click] = useState(false)
 
-  const handleScroll = () => {
-    const position = window.pageYOffset
-    setPosition(position)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [noOfGuests, setNoOfGuests] = useState(1)
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: 'selection',
   }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-  }, [])
+  const handleSelect = (ranges) => {
+    setStartDate(ranges.selection.startDate)
+    setEndDate(ranges.selection.endDate)
+  }
 
   return (
     <>
@@ -67,19 +75,27 @@ function Navbar() {
           className={`navbar__searchbar flex cursor-pointer  items-center justify-center rounded-full border bg-gray-200 py-2 md:hidden`}
         >
           <SearchIcon className="h-7 p-1 text-red-500" />
-          Where are you going?
+          <input
+            type="text"
+            value={searchInput}
+            className="bg-gray-200 outline-none"
+            placeholder="Where are you going?"
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
         </div>
 
         {position ? (
           <div className="nav__mdSearchBar hidden h-[50px]  cursor-pointer items-center rounded-full border py-[10px] shadow-sm md:flex md:py-[10px] md:px-2 lg:py-[10px]">
             <input
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               className="w-[250px] pl-2 outline-none"
               placeholder="Start your search"
             />
             <SearchIcon className="h-8 rounded-full bg-[#ff385c] px-2 py-2 text-white" />
           </div>
         ) : (
-          <div className="nav__midSection left-0 hidden w-[100%] pt-2 text-white   md:absolute md:top-[88px] md:block md:bg-black lg:relative lg:top-0 lg:bg-black lg:py-0">
+          <div className="nav__midSection left-0 hidden w-[100%] pt-0 text-white   md:absolute md:top-[88px] md:block md:bg-black lg:relative lg:top-0 lg:bg-black lg:py-0">
             <div className="ml-auto mr-auto flex justify-center  transition duration-150 ease-in-out md:w-[450px] lg:bg-black">
               <div
                 className="ml-auto mr-auto cursor-pointer "
@@ -177,7 +193,7 @@ function Navbar() {
         </div>
       </nav>
       <div
-        className={`mt-20 ml-auto mr-auto w-[92%] rounded-full bg-black bg-white/[.89]   lg:mt-5 lg:w-[75%]  ${
+        className={`mt-20 ml-auto mr-auto w-[92%] rounded-full bg-black bg-white/[.89] md:mt-[50px]   lg:mt-5 lg:w-[75%]  ${
           position ? 'hidden' : 'hidden md:flex'
         }`}
       >
@@ -190,11 +206,14 @@ function Navbar() {
             setLEl2click(false)
             setLEl3click(false)
             setLEl4click(false)
+            setSearchInput(' ')
           }}
         >
           <h3 className="text-sm text-black">Location</h3>
           <input
-            className={`w-[160px] truncate rounded-lg border-slate-500 bg-inherit  pl-2 text-black/[.6] outline-none focus:w-[200px]`}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className={`focus:pl-none  truncate rounded-lg border-slate-500  bg-inherit pl-2 text-black/[.6] outline-none focus:w-[120px]`}
             placeholder="Where are you going?"
           />
         </div>
@@ -208,6 +227,7 @@ function Navbar() {
             setLEl2click(true)
             setLEl3click(false)
             setLEl4click(false)
+            setSearchInput(' ')
           }}
         >
           <h3 className="text-sm text-black">Check-in</h3>
@@ -245,10 +265,50 @@ function Navbar() {
             <h3 className="text-sm text-black">Guests</h3>
             <h3 className="text-black/[.6]">Add guests</h3>
           </div>
-          <SearchIcon className="  mr-2 h-[50px] rounded-full bg-gradient-to-r from-[#FF385C] via-[#E31C5F] to-[#BD1E59] px-4 py-3" />
+          <SearchIcon className="cursor-pointer  mr-2 h-[50px] rounded-full bg-gradient-to-r from-[#FF385C] via-[#E31C5F] to-[#BD1E59] px-4 py-3" />
         </div>
         {/* //end */}
       </div>
+      {searchInput && (
+        <div
+          className={`ml-auto mr-auto flex  w-[100%] flex-col justify-center ${
+            position ? 'sticky top-[80px] z-50' : 'pt-0'
+          }`}
+        >
+          <div className="w-80% flex justify-center">
+            <DateRangePicker
+              ranges={[selectionRange]}
+              minDate={new Date()}
+              rangeColors={['#fd5b61']}
+              onChange={handleSelect}
+            />
+          </div>
+          <div className="mr-auto ml-auto hidden w-[50%] items-center border-b  bg-white p-4 pb-4 md:flex md:w-[558px]">
+            <h2 className=" flex-grow text-lg font-semibold">
+              Number of Guests
+            </h2>
+            <UsersIcon className="h-5" />
+            <input
+              value={noOfGuests}
+              onChange={(e) => setNoOfGuests(e.target.value)}
+              min={1}
+              type="number"
+              className="w-12 text-red-400 outline-none"
+              pl-2
+            />
+          </div>
+          <div className="mb-2 ml-auto mr-auto flex w-[333px] rounded-b-md border-none bg-white p-2 md:w-[558px]">
+            <button className="flex-grow text-gray-500 ">Search</button>
+            <button
+              className="flex-grow"
+              style={{ color: 'rgb(255, 56, 92)' }}
+              onClick={() => setSearchInput('')}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
