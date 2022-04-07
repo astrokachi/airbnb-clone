@@ -27,11 +27,14 @@ function Navbar({ searchInput, setSearchInput, position }) {
   const [endDate, setEndDate] = useState(new Date())
   const [noOfGuests, setNoOfGuests] = useState(1)
 
+  let myInp;
+
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
     key: 'selection',
   }
+
 
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate)
@@ -207,11 +210,13 @@ function Navbar({ searchInput, setSearchInput, position }) {
             setLEl3click(false)
             setLEl4click(false)
             setSearchInput(' ')
+            myInp.focus()
           }}
         >
           <h3 className="text-sm text-black">Location</h3>
           <input
             value={searchInput}
+            ref={(ip) => myInp = ip}
             onChange={(e) => setSearchInput(e.target.value)}
             className={`focus:pl-none  truncate rounded-lg border-slate-500  bg-inherit pl-2 text-black/[.6] outline-none focus:w-[120px]`}
             placeholder="Where are you going?"
@@ -228,6 +233,7 @@ function Navbar({ searchInput, setSearchInput, position }) {
             setLEl3click(false)
             setLEl4click(false)
             setSearchInput(' ')
+            myInp.focus()
           }}
         >
           <h3 className="text-sm text-black">Check-in</h3>
