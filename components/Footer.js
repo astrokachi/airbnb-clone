@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer = ({ margin }) => {
   return (
-    <div className="mr-auto ml-auto grid grid-cols-1 space-y-10 space-x-5 bg-[#eeeeee] px-10 md:mt-[370px] md:grid-cols-4 md:px-10 lg:px-20">
+    <div className={`mr-auto ml-auto grid grid-cols-1 space-y-10 space-x-5 bg-[#eeeeee] px-10 ${`md:${margin}`} md:grid-cols-4 md:px-10 lg:px-20`}>
       <div className="my-10 space-y-4 text-[#222222]">
         <h5 className="font-bold">Support</h5>
         <p>Help center</p>

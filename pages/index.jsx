@@ -13,7 +13,6 @@ export default function Home({ cardsData }) {
   const [searchInput, setSearchInput] = useState('')
   const [position, setPosition] = useState(0)
 
-
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
   }, [])
@@ -29,9 +28,20 @@ export default function Home({ cardsData }) {
         <title>Kachi's Airbnb</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={`absolute top-[0px] left-0 right-0 -z-10 ml-0 ${position && searchInput ? 'h-[1190px] md:h-[1400px] lg:h-[1270px]' : 'h-[800px]  md:h-[950px] lg:h-[850px]'}  w-[100%] bg-black text-white`} />
+      <div
+        className={`absolute top-[0px] left-0 right-0 -z-10 ml-0 ${
+          position && searchInput
+            ? 'h-[1190px] md:h-[1400px] lg:h-[1270px]'
+            : 'h-[800px]  md:h-[950px] lg:h-[850px]'
+        }  w-[100%] bg-black text-white`}
+      />
 
-      <Navbar searchInput={searchInput} setSearchInput={setSearchInput} position={position} handleScroll={handleScroll} />
+      <Navbar
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        position={position}
+        handleScroll={handleScroll}
+      />
       <Hero />
       <Banner />
 
@@ -58,7 +68,7 @@ export default function Home({ cardsData }) {
           <Blocks />
         </aside>
       </main>
-      <section className="mt-20 flex  flex-col  md:float-right md:block md:w-[95%]">
+      <section className="mt-20 md:mb-[160px] flex  flex-col  md:float-right md:block md:w-[95%]">
         <div className="md: ml-auto mr-auto flex w-[90%] flex-col md:float-left md:ml-0 md:mr-[20px] md:w-max">
           <h2
             className="w-[240px] text-[34px] font-[500] leading-[1] lg:w-[300px] lg:text-[45px]"

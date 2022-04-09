@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { findDOMNode } from 'react-dom'
 import Image from 'next/image'
 import {
   SearchIcon,
@@ -12,36 +13,13 @@ import 'react-date-range/dist/theme/default.css' // theme css file
 import { DateRangePicker } from 'react-date-range'
 import { useRouter } from 'next/router'
 
-function Navbar({ searchInput, setSearchInput, position }) {
-  const [el1hover, setEl1Hover] = useState(false)
-  const [el2hover, setEl2Hover] = useState(false)
-  const [el3hover, setEl3Hover] = useState(false)
-  const [el1click, setEl1Click] = useState(true)
-  const [el2click, setEl2Click] = useState(false)
-  const [el3click, setEl3Click] = useState(false)
-  const [lel1click, setLEl1click] = useState(false)
-  const [lel2click, setLEl2click] = useState(false)
-  const [lel3click, setLEl3click] = useState(false)
-  const [lel4click, setLEl4click] = useState(false)
-  const router = useRouter()
-
+function Nav({ searchInput, setSearchInput, position, placeholder }) {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [noOfGuests, setNoOfGuests] = useState(1)
+  const router = useRouter()
 
   let myInp
-
-  const search = () => {
-    router.push({
-      pathname: '/search',
-      query: {
-        location: searchInput,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        noOfGuests,
-      },
-    })
-  }
 
   const selectionRange = {
     startDate: startDate,
@@ -54,24 +32,31 @@ function Navbar({ searchInput, setSearchInput, position }) {
     setEndDate(ranges.selection.endDate)
   }
 
+  let scroll
+
+  // useEffect(() => {
+  //   const scroll = findDOMNode(scroll)
+  //   if (searchInput) {
+  //     scroll.scrollTop = 200 // your scroll position
+  //   }
+  // })
+
   return (
     <>
       <nav
-        className={`navbar sticky top-0 z-50 p-5 px-9 shadow-md   md:flex ${
-          position ? 'lg:justify-between' : 'md:justify-between'
-        }${position ? 'h-[90px] bg-white text-black' : 'bg-black lg:h-20'}`}
+        ref={(ref) => scroll}
+        className={`navbar sticky top-0 z-50 mr-auto ml-auto flex  justify-center bg-white p-5 px-9 shadow-md md:flex md:w-[unset] `}
       >
         <div
-          className={`"navbar__logo relative my-auto hidden  h-10 items-center transition duration-200  ease-in-out  md:inline-block md:w-40 lg:flex  lg:pl-9 ${
-            position ? 'md:w-[10%] lg:w-[35%]' : 'lg:w-[50%]'
-          } `}
+          onClick={() => router.push('/')}
+          className={`navbar__logo relative  my-auto items-center   transition duration-200 ease-in-out md:h-10   md:flex-grow  lg:flex`}
         >
           <svg
-            className="cursor-pointer"
+            className=" cursor-pointer md:block"
             width="30"
             height="35"
-            fill={`${position ? 'rgb(255, 56, 92)' : 'white'}`}
-            style={{ display: 'block' }}
+            fill={`${position ? 'rgb(255, 56, 92)' : 'rgb(255, 56, 92)'}`}
+            // style={{ display: 'block' }}
           >
             <path
               className="cursor-pointer"
@@ -79,119 +64,111 @@ function Navbar({ searchInput, setSearchInput, position }) {
             ></path>
           </svg>
           <h4
-            className={`'lg:block ml-2 mb-[3px] hidden w-max cursor-pointer text-xl  font-semibold  lg:inline-block ${
-              position ? 'hidden text-black' : 'block text-white '
-            }`}
+            className={`ml-2 mb-[3px] hidden w-max cursor-pointer text-2xl font-bold lg:inline-block `}
+            style={{ color: 'rgb(255, 56, 92)' }}
           >
             airbnb
           </h4>
         </div>
 
         <div
-          className={`navbar__searchbar flex cursor-pointer  items-center justify-center rounded-full border bg-gray-200 py-2 md:hidden`}
+          className={` mr-auto ml-auto  flex w-[19em] cursor-pointer items-center justify-center rounded-full border bg-white px-2 py-2 md:hidden md:max-w-[300px] md:flex-grow `}
         >
-          <SearchIcon className="h-7 p-1 text-red-500" />
           <input
             type="text"
             value={searchInput}
-            className="bg-gray-200 outline-none"
-            placeholder="Where are you going?"
+            className="flex-grow bg-white pl-2 outline-none"
+            placeholder={placeholder}
             onChange={(e) => setSearchInput(e.target.value)}
           />
+          <SearchIcon className="mr-2 ml-2 h-[30px] cursor-pointer rounded-full bg-gradient-to-r from-red-400 via-red-500 to-red-500 px-2 py-2 text-white" />
         </div>
 
-        {position ? (
-          <div className="nav__mdSearchBar hidden h-[50px]  cursor-pointer items-center rounded-full border py-[10px] shadow-sm md:flex md:py-[10px] md:px-2 lg:py-[10px]">
-            <input
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              className="w-[250px] pl-2 outline-none"
-              placeholder="Start your search"
-            />
-            <SearchIcon className="h-8 rounded-full bg-[#ff385c] px-2 py-2 text-white" />
-          </div>
-        ) : (
-          <div className="nav__midSection left-0 hidden w-[100%] pt-0 text-white   md:absolute md:top-[88px] md:block md:bg-black lg:relative lg:top-0 lg:bg-black lg:py-0">
-            <div className="ml-auto mr-auto flex justify-center  transition duration-150 ease-in-out md:w-[450px] lg:bg-black">
-              <div
-                className="ml-auto mr-auto cursor-pointer "
-                onMouseEnter={() => setEl1Hover(true)}
-                onMouseLeave={() => setEl1Hover(false)}
-                onClick={() => {
-                  setEl1Click(true)
-                  setEl2Click(false)
-                  setEl3Click(false)
-                }}
-              >
-                <h3 className={`py-2`}>Places to stay</h3>
-                <div
-                  className={`line  ${
-                    el1click ? '--active' : ''
-                  } ml-auto mr-auto w-1 border-b-2  ${
-                    el1hover ? 'block ' : 'hidden'
-                  }`}
-                />
-              </div>
-              <div
-                className="ml-auto mr-auto cursor-pointer"
-                onMouseEnter={() => setEl2Hover(true)}
-                onMouseLeave={() => setEl2Hover(false)}
-                onClick={() => {
-                  setEl1Click(false)
-                  setEl2Click(true)
-                  setEl3Click(false)
-                }}
-              >
-                <h3 className="ml-auto mr-auto py-2  text-[16px]">
-                  Experiences
-                </h3>
-                <div
-                  className={`line ${
-                    el2click ? '--active' : ''
-                  } ml-auto mr-auto w-1 border-b-2 transition delay-200 ease-in ${
-                    el2hover ? 'block ' : 'hidden '
-                  }`}
-                />
-              </div>
-              <div
-                className="cursor-poiner ml-auto mr-auto "
-                onMouseEnter={() => setEl3Hover(true)}
-                onMouseLeave={() => setEl3Hover(false)}
-                onClick={() => {
-                  setEl1Click(false)
-                  setEl2Click(false)
-                  setEl3Click(true)
-                }}
-              >
-                <h3 className="ml-auto mr-auto cursor-pointer py-2 lg:text-[16px]">
-                  Online Experiences
-                </h3>
-                <div
-                  className={`line ${
-                    el3click ? '--active' : ''
-                  } ml-auto mr-auto w-1 border-b-2 transition delay-200 ease-in ${
-                    el3hover ? 'block ' : 'hidden '
-                  }`}
-                />
-              </div>
-            </div>
-            {/* //start */}
-          </div>
-        )}
+        <div className=" hidden h-[50px] w-[320px] cursor-pointer items-center rounded-full border py-[10px] shadow-sm md:flex md:py-[10px] md:px-2 lg:py-[10px]">
+          <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="flex w-[250px] grow pl-2 outline-none"
+            placeholder={placeholder}
+          />
+          <SearchIcon className="h-8 rounded-full bg-[#ff385c] px-2 py-2 text-white" />
+        </div>
+
+        {position
+          ? ''
+          : // <div className="nav__midSection left-0 hidden w-[100%] pt-0 text-white   md:absolute md:top-[88px] md:block md:bg-black lg:relative lg:top-0 lg:bg-black lg:py-0">
+            //   <div className="ml-auto mr-auto flex justify-center  transition duration-150 ease-in-out md:w-[450px] lg:bg-black">
+            //     <div
+            //       className="ml-auto mr-auto cursor-pointer "
+            //       onMouseEnter={() => setEl1Hover(true)}
+            //       onMouseLeave={() => setEl1Hover(false)}
+            //       onClick={() => {
+            //         setEl1Click(true)
+            //         setEl2Click(false)
+            //         setEl3Click(false)
+            //       }}
+            //     >
+            //       <h3 className={`py-2`}>Places to stay</h3>
+            //       <div
+            //         className={`line  ${
+            //           el1click ? '--active' : ''
+            //         } ml-auto mr-auto w-1 border-b-2  ${
+            //           el1hover ? 'block ' : 'hidden'
+            //         }`}
+            //       />
+            //     </div>
+            //     <div
+            //       className="ml-auto mr-auto cursor-pointer"
+            //       onMouseEnter={() => setEl2Hover(true)}
+            //       onMouseLeave={() => setEl2Hover(false)}
+            //       onClick={() => {
+            //         setEl1Click(false)
+            //         setEl2Click(true)
+            //         setEl3Click(false)
+            //       }}
+            //     >
+            //       <h3 className="ml-auto mr-auto py-2  text-[16px]">
+            //         Experiences
+            //       </h3>
+            //       <div
+            //         className={`line ${
+            //           el2click ? '--active' : ''
+            //         } ml-auto mr-auto w-1 border-b-2 transition delay-200 ease-in ${
+            //           el2hover ? 'block ' : 'hidden '
+            //         }`}
+            //       />
+            //     </div>
+            //     <div
+            //       className="cursor-poiner ml-auto mr-auto "
+            //       onMouseEnter={() => setEl3Hover(true)}
+            //       onMouseLeave={() => setEl3Hover(false)}
+            //       onClick={() => {
+            //         setEl1Click(false)
+            //         setEl2Click(false)
+            //         setEl3Click(true)
+            //       }}
+            //     >
+            //       <h3 className="ml-auto mr-auto cursor-pointer py-2 lg:text-[16px]">
+            //         Online Experiences
+            //       </h3>
+            //       <div
+            //         className={`line ${
+            //           el3click ? '--active' : ''
+            //         } ml-auto mr-auto w-1 border-b-2 transition delay-200 ease-in ${
+            //           el3hover ? 'block ' : 'hidden '
+            //         }`}
+            //       />
+            //     </div>
+            //   </div>
+            //   {/* //start */}
+            // </div>
+            ''}
 
         <div
-          className={`"nav__userSection  hidden items-center text-white md:flex ${
-            position
-              ? 'navbar__flexItems text-black lg:w-[45%] lg:justify-end'
-              : ' md:ml-[50%] lg:ml-0 lg:w-[50%]'
-          }`}
+          className={`hidden flex-grow items-center justify-end text-black  md:flex lg:justify-end`}
         >
           <h3
-            className={`min-w-[150px] cursor-pointer rounded-full px-4 py-3  ${
-              position
-                ? 'cursor-pointer text-black hover:bg-black/[0.07]'
-                : 'cursor-pointer hover:bg-white/[0.17]'
-            }`}
+            className={` cursor-pointer rounded-full px-4 py-3 text-black hover:bg-black/[0.07]`}
           >
             Become a Host
           </h3>
@@ -208,7 +185,7 @@ function Navbar({ searchInput, setSearchInput, position }) {
           </div>
         </div>
       </nav>
-      <div
+      {/*<div
         className={`mt-20 ml-auto mr-auto w-[92%] rounded-full bg-black bg-white/[.89] md:mt-[50px]   lg:mt-5 lg:w-[75%]  ${
           position ? 'hidden' : 'hidden md:flex'
         }`}
@@ -245,6 +222,8 @@ function Navbar({ searchInput, setSearchInput, position }) {
             setLEl2click(true)
             setLEl3click(false)
             setLEl4click(false)
+            setSearchInput(' ')
+            myInp.focus()
           }}
         >
           <h3 className="text-sm text-black">Check-in</h3>
@@ -282,14 +261,14 @@ function Navbar({ searchInput, setSearchInput, position }) {
             <h3 className="text-sm text-black">Guests</h3>
             <h3 className="text-black/[.6]">Add guests</h3>
           </div>
-          <SearchIcon className="mr-2 h-[50px] cursor-pointer rounded-full bg-gradient-to-r from-[#FF385C] via-[#E31C5F] to-[#BD1E59] px-4 py-3 text-white" />
+          <SearchIcon className="mr-2  h-[50px] cursor-pointer rounded-full bg-gradient-to-r from-[#FF385C] via-[#E31C5F] to-[#BD1E59] px-4 py-3" />
         </div>
-        {/* //end */}
-      </div>
+        {/* //end 
+      </div> */}
       {searchInput && (
         <div
           className={`ml-auto mr-auto flex  w-[100%] flex-col justify-center ${
-            position ? 'sticky top-[80px] z-50' : 'pt-0'
+            position ? 'sticky top-[89px] z-50' : 'pt-0'
           }`}
         >
           <div className="w-80% flex justify-center">
@@ -319,10 +298,6 @@ function Navbar({ searchInput, setSearchInput, position }) {
               className="flex-grow text-gray-500"
               onClick={() => {
                 setSearchInput('')
-                setLEl1click(false)
-                setLEl2click(false)
-                setLEl3click(false)
-                setLEl4click(false)
               }}
             >
               Cancel
@@ -330,7 +305,6 @@ function Navbar({ searchInput, setSearchInput, position }) {
             <button
               className="flex-grow "
               style={{ color: 'rgb(255, 56, 92)' }}
-              onClick={search}
             >
               Search
             </button>
@@ -341,4 +315,4 @@ function Navbar({ searchInput, setSearchInput, position }) {
   )
 }
 
-export default Navbar
+export default Nav
