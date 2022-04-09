@@ -14,7 +14,7 @@ const InfoCard = ({
 }) => {
   return (
     <div className="flex transform cursor-pointer border-b py-7 px-2 transition duration-200 ease-out first:border-t hover:opacity-80 hover:shadow-lg">
-      <div className="relative h-24 w-40 flex-shrink-0  md:h-52 md:w-80">
+      <div className="h-74 relative w-40 flex-shrink-0  md:h-52 md:w-80">
         <Image
           src={img}
           layout="fill"
@@ -28,7 +28,7 @@ const InfoCard = ({
           <p>{location}</p>
           <HeartIcon className="h-7 cursor-pointer" />
         </div>
-        <h4 className="text-xl">{title}</h4>
+        <h4 className="py-2 text-xl ">{title}</h4>
 
         <div className="w-10 border-b pt-2" />
 
